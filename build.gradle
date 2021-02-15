@@ -1,0 +1,5 @@
+apply plugin: 'checkstyle'
+
+checkstyle {
+    config = resources.text.fromFile("${rootDir}/.checkstyle/checkstyle.xml")
+}
