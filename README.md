@@ -29,3 +29,6 @@ To format code at anytime, use either the "Ctrl+Alt+L" shortcut or navigate to _
   * Back in VS Code navigate to _File_ -> _Preferences_ -> _Settings_
   * Search `checkstyle`
   * In the setting titled "Java › Checkstyle: Configuration" paste in the URL you copied
+
+## Updating the checkstyle submodule
+If you're noticing that your builds are failing due to checkstyle warnings but none are popping up locally, it's most likely the case that this repository has been updated and the one you're working on hasn't pulled those changes yet. Simply navigate to the `.checkstyle` folder in your repository via a command line and run `git pull`. Then add/commit/push the changes to your remote branch.
