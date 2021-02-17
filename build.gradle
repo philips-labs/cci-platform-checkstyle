@@ -5,6 +5,6 @@ checkstyle {
 }
 
 tasks.withType(JavaCompile) {
-    if (!options.compilerArgs.contains(\"-Werror\") || !options.compilerArgs.contains(\"-Xlint:all,-processing\"))
-        throw new Exception(\"-Werror and -Xlint:all,-processing flags must be enabled\")
+    if (!options.compilerArgs.contains("-Werror") || !options.compilerArgs.contains("-Xlint:all,-processing"))
+        throw new Exception("-Werror and -Xlint:all,-processing flags must be enabled")
 }
