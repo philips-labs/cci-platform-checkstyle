@@ -1,7 +1,7 @@
 apply plugin: 'checkstyle'
 
 checkstyle {
-    config = resources.text.fromFile("${rootDir}/.checkstyle/checkstyle.xml")
+    config = resources.text.fromFile("${rootDir}/.cci-common/checkstyle.xml")
 }
 
 tasks.withType(JavaCompile) {
