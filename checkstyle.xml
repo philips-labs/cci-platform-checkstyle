@@ -210,12 +210,15 @@
             <property name="allowLineBreaks" value="true"/>
         </module>
         <module name="ParenPad"/>
+        <!-- To many issues to fix before it is possible to enable this rule, there are many problems to fix before it is possible to activate this rule, 
+             and no automatic tools have been found to fix these problems so far.
         <module name="OperatorWrap">
             <property name="option" value="NL"/>
             <property name="tokens"
              value="BAND, BOR, BSR, BXOR, DIV, EQUAL, GE, GT, LAND, LE, LITERAL_INSTANCEOF, LOR,
                     LT, MINUS, MOD, NOT_EQUAL, PLUS, QUESTION, SL, SR, STAR, METHOD_REF "/>
         </module>
+        -->
         <module name="AnnotationLocation">
             <property name="id" value="AnnotationLocationMostCases"/>
             <property name="tokens"
