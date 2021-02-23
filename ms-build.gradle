@@ -1,0 +1,70 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.3.0.RELEASE'
+        classpath 'io.spring.gradle:dependency-management-plugin:1.0.7.RELEASE'
+    }
+}
+
+apply plugin: 'war'
+apply plugin: org.springframework.boot.gradle.plugin.SpringBootPlugin
+apply plugin: io.spring.gradle.dependencymanagement.DependencyManagementPlugin
+
+apply from: "${rootDir}/.cci-common/build.gradle"
+
+dependencies {
+    // Spring Boot
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version:'2.3.0.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-dependencies:2.0.5.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    // Prometheus
+    compile 'io.micrometer:micrometer-registry-prometheus:latest.release'
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+
+    // Swagger
+    compile 'io.springfox:springfox-swagger2:2.9.1'
+    compile 'io.springfox:springfox-swagger-ui:2.9.1'
+}
+
+ext {
+    set('githubRunId', System.getenv()['GITHUB_RUN_ID'])
+    set('githubServerUrl', System.getenv()['GITHUB_SERVER_URL'])
+    set('githubRepository', System.getenv()['GITHUB_REPOSITORY'])
+}
+
+war {
+    enabled = true
+}
+
+test {
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = "${rootProject.name}"
+            from components.web
+        }
+    }
+}
+
+springBoot {
+    buildInfo {
+		properties {
+			additional = [
+				'actions.runid': System.getenv()['GITHUB_RUN_ID'] ? System.getenv()['GITHUB_RUN_ID'] : '',
+				'actions.runurl': "${githubServerUrl}/${githubRepository}/actions/runs/${githubRunId}"
+			]
+		}		
+	}
+}
