@@ -63,7 +63,8 @@ springBoot {
 		properties {
 			additional = [
 				'actions.runid': System.getenv()['GITHUB_RUN_ID'] ? System.getenv()['GITHUB_RUN_ID'] : '',
-				'actions.runurl': "${githubServerUrl}/${githubRepository}/actions/runs/${githubRunId}"
+				'actions.runurl': "${githubServerUrl}/${githubRepository}/actions/runs/${githubRunId}",
+				'tasy.version': System.getenv()["TASY_VERSION"] ? System.getenv()["TASY_VERSION"] : ''
 			]
 		}		
 	}
